@@ -7,7 +7,7 @@
         <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.0"/>
     </startup>
     <log4net>
-        <appender name="ElasticSearchAppender" type="log4net.ElasticSearch.ElasticSearchAppender, log4net.ElasticSearch">
+        <appender name="ElasticSearchAsyncAppender" type="log4net.ElasticSearch.Async.ElasticSearchAsyncAppender, log4net.ElasticSearch.Async">
             <connectionString value="Server=localhost;Index=log;Port=9200;rolling=true"/>
             <lossy value="false" />
             <bufferSize value="100" />
@@ -17,7 +17,7 @@
         </appender>
         <root>
             <level value="ALL"/>
-            <appender-ref ref="ElasticSearchAppender" />
+            <appender-ref ref="ElasticSearchAsyncAppender" />
         </root>
     </log4net>
 </configuration>

@@ -1,14 +1,16 @@
+Framework "4.6"
+
 properties {
     $base_dir       = (Get-Item (Resolve-Path .)).Parent.FullName
     $bin_dir        = "$base_dir\bin"
-    $sln_path       = "$base_dir\src\log4net.ElasticSearch.sln"
-    $config         = "Debug"
-    $tests_path     = "$base_dir\src\log4net.ElasticSearch.Tests\bin\$config\log4net.ElasticSearch.Tests.dll"
+    $sln_path       = "$base_dir\src\log4net.ElasticSearch.Async.sln"
+    $config         = "Release"
+    $tests_path     = "$base_dir\src\log4net.ElasticSearch.Async.Tests\bin\$config\log4net.ElasticSearch.Async.Tests.dll"
     $xunit_path     = "$base_dir\src\packages\xunit.runner.console.2.1.0\tools\xunit.console.exe"
     $dirs           = @($bin_dir)
     $artefacts      = @("$base_dir\LICENSE", "$base_dir\readme.txt")
     $nuget_path     = "$base_dir\tools\nuget\NuGet.exe"
-    $nuspec_path    = "$base_dir\scripts\log4net.ElasticSearch.nuspec"
+    $nuspec_path    = "$base_dir\scripts\log4net.ElasticSearch.Async.nuspec"
 }
 
 task default        -depends Clean, Compile, Test
@@ -20,7 +22,7 @@ task Clean {
 
 task Compile {
     exec {
-        msbuild $sln_path /p:Configuration=$config /t:Rebuild /v:Quiet /nologo
+        msbuild $sln_path /p:Configuration=$config /t:Rebuild /v:minimal /nologo
     }
 }
 

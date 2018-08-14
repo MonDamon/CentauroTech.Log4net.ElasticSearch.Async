@@ -1,5 +1,39 @@
-log4net.ElasticSearch
+log4net.ElasticSearch.Async
 =====================
+[![NuGet Status](http://img.shields.io/badge/nuget-1.0.2-green.svg)](https://www.nuget.org/packages/log4net.ElasticSearch.Async/)
+[![Build status](https://ci.appveyor.com/api/projects/status/258t616fpp5336q2/branch/master?svg=true)](https://ci.appveyor.com/project/ptylenda/log4net-elasticsearch-async/branch/master)
+
+log4net.ElasticSearch.Async is a log4net appender, based on [log4net.ElasticSearch](https://github.com/jptoto/log4net.ElasticSearch) package, for easy logging of exceptions and messages to Elasticsearch indices. The main improvement over log4net.ElasticSearch is background/async logging based on producer-consumer pattern, automatically utilizing bulk API in case of log event bursts. Currently the package provides: 
+       
+* Background/Async logging based on producer-consumer pattern (non-blocking for main application thread)
+* Configurable exponential backoff retry policy for communication with ElasticSearch
+* External machine IP added to log events (if possible)
+* Skipping TLS certificate validation for ElasticSearch endpoint
+* Setting custom HTTP(s) proxy
+* Disabling system HTTP(S) proxy
+
+Example appender configuration which utilizes all the possible features, apart from setting custom HTTP(S) proxy:
+```xml
+<appender name="ElasticSearchAsyncAppender" type="log4net.ElasticSearch.Async.ElasticSearchAsyncAppender, log4net.ElasticSearch.Async">
+  <!-- for .NET 40 <appender name="ElasticSearchAsyncAppender" type="log4net.ElasticSearch.Async.ElasticSearchAsyncAppender, log4net.ElasticSearch.Async.Net40">-->
+  <connectionString value="Scheme=https;
+                           Server=elasticsearch.somewebsite.com;
+                           Port=443;
+                           Index=log-myapplication;
+                           Rolling=true;
+                           SkipCertificateValidation=true;
+                           SkipProxy=true;
+                           HttpDefaultConnectionLimit=30;
+                           " />
+  <maxRetries>10</maxRetries>
+  <retrySeedDelay>00:00:05</retrySeedDelay>
+  <retryMaxDelay>00:05:00</retryMaxDelay>
+  <onCloseTimeout>00:00:10</onCloseTimeout>
+  <externalIpCheckAddress>8.8.8.8</externalIpCheckAddress>
+</appender>
+```
+
+# Original log4net.ElasticSearch readme below:
 
 [![NuGet Status](http://img.shields.io/badge/nuget-2.3.7-green.svg)](https://www.nuget.org/packages/log4net.ElasticSearch/)
 

@@ -8,4 +8,4 @@ install:
  - ps: Start-Process -FilePath 'C:\Elasticsearch\elasticsearch-6.2.1\bin\elasticsearch.bat' -WorkingDirectory 'c:\Elasticsearch\elasticsearch-6.2.1\bin'
  - ps: Start-Sleep -s 5
 before_build:
- - nuget restore src\log4net.ElasticSearch.sln
+ - nuget restore src\log4net.ElasticSearch.Async.sln
