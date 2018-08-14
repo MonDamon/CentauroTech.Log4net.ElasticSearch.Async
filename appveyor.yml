@@ -1,3 +1,4 @@
+image: Visual Studio 2017
 install:
  - ps: $url = "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.2.1.zip"
  - ps: $output = "c:\Windows\temp\es.zip"
