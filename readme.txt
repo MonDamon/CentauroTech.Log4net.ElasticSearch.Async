@@ -1,5 +1,13 @@
-log4net.ElasticSearch.Async is log4net.ElasticSearch package refactored in order to enable non-blocking background logging to ElasticSearch, based on producer-consumer pattern.
+log4net.ElasticSearch.Async is a log4net appender, based on log4net.ElasticSearch package, for easy logging of exceptions and messages to Elasticsearch indices. The main improvement over log4net.ElasticSearch is background/async logging based on producer-consumer pattern, automatically utilizing bulk API in case of log event bursts. Currently the package provides:
+- Background/Async logging based on producer-consumer pattern (non-blocking for main application thread)
+- Configurable exponential backoff retry policy for communication with ElasticSearch
+- External machine IP added to log events (if possible)
+- Skipping TLS certificate validation for ElasticSearch endpoint
+- Setting custom HTTP(s) proxy
+- Disabling system HTTP(S) proxy
 
+
+---
 
 The package is based on the following repository:
 

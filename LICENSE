@@ -1,4 +1,5 @@
 log4net.ElasticSearch.Async
+Copyright (c) 2018 Piotr Tylenda
 
 The package is based on the following repository:
 log4net.ElasticSearch

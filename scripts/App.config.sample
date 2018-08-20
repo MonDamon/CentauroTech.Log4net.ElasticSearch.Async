@@ -8,9 +8,20 @@
     </startup>
     <log4net>
         <appender name="ElasticSearchAsyncAppender" type="log4net.ElasticSearch.Async.ElasticSearchAsyncAppender, log4net.ElasticSearch.Async">
-            <connectionString value="Server=localhost;Index=log;Port=9200;rolling=true"/>
-            <lossy value="false" />
-            <bufferSize value="100" />
+            <connectionString value="Scheme=https;
+                                     Server=elasticsearch.somewebsite.com;
+                                     Port=443;
+                                     Index=log-myapplication;
+                                     Rolling=true;
+                                     SkipCertificateValidation=true;
+                                     SkipProxy=true;
+                                     HttpDefaultConnectionLimit=30;
+                                     " />
+            <maxRetries>10</maxRetries>
+            <retrySeedDelay>00:00:05</retrySeedDelay>
+            <retryMaxDelay>00:05:00</retryMaxDelay>
+            <onCloseTimeout>00:00:10</onCloseTimeout>
+            <externalIpCheckAddress>8.8.8.8</externalIpCheckAddress>
             <evaluator type="log4net.Core.LevelEvaluator">
                 <threshold value="ERROR"/>
             </evaluator>
