@@ -8,6 +8,7 @@
 
     using log4net.Appender;
     using log4net.Core;
+    using log4net.Util;
 
     /// <summary>
     /// Asynchronous appender wrapper skeleton for log4net with possibility to generate bulk packages of logging events
@@ -72,10 +73,18 @@
                 loggingEvent.Fix = FixFlags.All;
                 if (!this.eventsQueue.IsAddingCompleted)
                 {
+                    int droppedCount = 0;
+
                     // Add new events in a rolling buffer fashion
                     while (!this.eventsQueue.TryAdd(loggingEvent))
                     {
                         this.eventsQueue.TryTake(out _);
+                        droppedCount++;
+                    }
+
+                    if (droppedCount > 0)
+                    {
+                        LogLog.Warn(this.GetType(), $"{droppedCount} log events have been dropped, RollingBufferSize={this.RollingBufferSize} has been reached");
                     }
                 }
             }
