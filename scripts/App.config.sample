@@ -16,6 +16,7 @@
                                      SkipCertificateValidation=true;
                                      SkipProxy=true;
                                      HttpDefaultConnectionLimit=30;
+                                     Pipeline=auto-timestamp;
                                      " />
             <maxRetries>10</maxRetries>
             <retrySeedDelay>00:00:05</retrySeedDelay>

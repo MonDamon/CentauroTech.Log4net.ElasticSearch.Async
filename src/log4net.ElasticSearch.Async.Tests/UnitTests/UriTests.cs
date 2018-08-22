@@ -19,6 +19,7 @@
         const string ExplicitlyNonRollingPortLessConnectionString = "Server=localhost;Index=log;rolling=false";
         const string BulkConnectionString = "Server=localhost;Index=log;BufferSize=10";
         const string RoutingConnectionString = "Server=localhost;Index=log;BufferSize=10;Routing=foo";
+        const string RoutingAndPipelineConnectionString = "Server=localhost;Index=log;BufferSize=10;Routing=foo;Pipeline=auto-timestamp";
 
         [Fact]
         public void Implicit_non_rolling_connectionstring_is_parsed_into_index_uri_without_date_suffix()
@@ -104,7 +105,15 @@
         {
             UriFor(RoutingConnectionString, useBulkApi: true).
                 AbsoluteUri.Should().
-                Be("http://localhost/log/logEvent?routing=foo/_bulk");
+                Be("http://localhost/log/logEvent/_bulk?routing=foo");
+        }
+
+        [Fact]
+        public void Routing_and_pipeline_connection_string_is_appended_as_query_string_parameter()
+        {
+            UriFor(RoutingAndPipelineConnectionString, useBulkApi: true).
+                AbsoluteUri.Should().
+                BeOneOf("http://localhost/log/logEvent/_bulk?routing=foo&pipeline=auto-timestamp", "http://localhost/log/logEvent/_bulk?pipeline=auto-timestamp&routing=foo");
         }
 
         static Uri UriFor(string connectionString, bool useBulkApi)

@@ -1,7 +1,9 @@
 ﻿namespace log4net.ElasticSearch.Async.Models
 {
     using System;
+    using System.Collections.Generic;
     using System.Collections.Specialized;
+    using System.Linq;
 
     using log4net.ElasticSearch.Async.Infrastructure;
 
@@ -27,8 +29,8 @@
                         this.Server(),
                         this.Port(),
                         this.Index(),
-                        this.Routing(),
-                        useBulkApi ? this.Bulk() : string.Empty));
+                        useBulkApi ? this.Bulk() : string.Empty,
+                        this.UrlParams()));
             }
 
             return string.IsNullOrEmpty(this.Port())
@@ -38,8 +40,8 @@
                                this.Scheme(),
                                this.Server(),
                                this.Index(),
-                               this.Routing(),
-                               useBulkApi ? this.Bulk() : string.Empty))
+                               useBulkApi ? this.Bulk() : string.Empty,
+                               this.UrlParams()))
                        : new Uri(
                            string.Format(
                                "{0}://{1}:{2}/{3}/logEvent{4}{5}",
@@ -47,8 +49,8 @@
                                this.Server(),
                                this.Port(),
                                this.Index(),
-                               this.Routing(),
-                               useBulkApi ? this.Bulk() : string.Empty));
+                               useBulkApi ? this.Bulk() : string.Empty,
+                               this.UrlParams()));
         }
 
         public static ElasticSearchUri For(string connectionString)
@@ -80,18 +82,7 @@
         {
             return this.connectionStringParts[Keys.Port];
         }
-
-        private string Routing()
-        {
-            var routing = this.connectionStringParts[Keys.Routing];
-            if (!string.IsNullOrWhiteSpace(routing))
-            {
-                return string.Format("?routing={0}", routing);
-            }
-
-            return string.Empty;
-        }
-
+        
         private string Bulk()
         {
             return "/_bulk";
@@ -111,6 +102,26 @@
             return parts.Contains(Keys.Rolling) && parts[Keys.Rolling].ToBool();
         }
 
+        private string UrlParams()
+        {
+            var urlParamsDict = new Dictionary<string, string>();
+
+            var routing = this.connectionStringParts[Keys.Routing];
+            if (!string.IsNullOrWhiteSpace(routing))
+            {
+                urlParamsDict["routing"] = routing;
+            }
+
+            var pipeline = this.connectionStringParts[Keys.Pipeline];
+            if (!string.IsNullOrWhiteSpace(pipeline))
+            {
+                urlParamsDict["pipeline"] = pipeline;
+            }
+
+            var urlParams = string.Join("&", urlParamsDict.Select(kvp => $"{kvp.Key}={kvp.Value}"));
+            return !string.IsNullOrWhiteSpace(urlParams) ? $"?{urlParams}" : string.Empty;
+        }
+
         private static class Keys
         {
             public const string Scheme = "Scheme";
@@ -121,6 +132,7 @@
             public const string Index = "Index";
             public const string Rolling = "Rolling";
             public const string Routing = "Routing";
+            public const string Pipeline = "Pipeline";
         }
     }
 }

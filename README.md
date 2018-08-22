@@ -17,6 +17,7 @@ log4net.ElasticSearch.Async is a log4net appender, based on [log4net.ElasticSear
 * Skipping TLS certificate validation for ElasticSearch endpoint
 * Setting custom HTTP(s) proxy
 * Disabling system HTTP(S) proxy
+* Using custom ElasticSearch processing pipeline
 
 Example appender configuration which utilizes all the possible features, apart from setting custom HTTP(S) proxy:
 ```xml
@@ -30,6 +31,7 @@ Example appender configuration which utilizes all the possible features, apart f
                            SkipCertificateValidation=true;
                            SkipProxy=true;
                            HttpDefaultConnectionLimit=30;
+                           Pipeline=auto-timestamp;
                            " />
   <maxRetries>10</maxRetries>
   <retrySeedDelay>00:00:05</retrySeedDelay>
