@@ -2,7 +2,7 @@
 <package >
     <metadata>
         <id>log4net.ElasticSearch.Async</id>
-        <version>1.0.4</version>
+        <version>1.0.5</version>
         <authors>Piotr Tylenda</authors>
         <owners>Piotr Tylenda</owners>
         <iconUrl>http://nest.azurewebsites.net/images/nuget-icon.png</iconUrl>
@@ -20,6 +20,7 @@
         <releaseNotes>
 - Background/Async logging based on producer-consumer pattern (non-blocking for main application thread)
 - Configurable exponential backoff retry policy for communication with ElasticSearch
+- Configurable buffer sizes with rolling buffer option (both general producer-consumer buffer and intermediate flush buffer)
 - External machine IP added to log events (if possible)
 - Skipping TLS certificate validation for ElasticSearch endpoint
 - Setting custom HTTP(S) proxy

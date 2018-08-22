@@ -14,11 +14,11 @@
     /// </summary>
     public abstract class AsyncBulkAppenderSkeleton : AppenderSkeleton
     {
-        /// <summary>Default size of buffer on which events will be flushed to output.</summary>
-        private const int DefaultFlushTriggerBuggerSize = 256;
+        /// <summary>Default maximum size of buffer on which events will be flushed to output instantly.</summary>
+        private const int DefaultFlushTriggerBufferSize = 256;
 
-        /// <summary>Collection of queued logging events (producer-consumer)</summary>
-        private readonly BlockingCollection<LoggingEvent> eventsQueue;
+        /// <summary>Default size of rolling buffer. Zero means that the buffer will have no upper bound</summary>
+        private const int DefaultRollingBufferSize = 0;
 
         /// <summary>Event triggered when all events have been processed and queue has been closed.</summary>
         private readonly ManualResetEvent addingCompletedEvent;
@@ -26,19 +26,40 @@
         /// <summary>Cancellation token source for closing event queue.</summary>
         private readonly CancellationTokenSource cancellationTokenSource;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AsyncBulkAppenderSkeleton"/> class.
-        /// </summary>
+        /// <summary>Collection of queued logging events (producer-consumer)</summary>
+        private BlockingCollection<LoggingEvent> eventsQueue;
+
+        /// <summary>Initializes a new instance of the <see cref="AsyncBulkAppenderSkeleton"/> class.</summary>
         protected AsyncBulkAppenderSkeleton()
         {
-            this.eventsQueue = new BlockingCollection<LoggingEvent>();
+            this.RollingBufferSize = DefaultRollingBufferSize;
+            this.FlushTriggerBufferSize = DefaultFlushTriggerBufferSize;
+
             this.addingCompletedEvent = new ManualResetEvent(false);
             this.cancellationTokenSource = new CancellationTokenSource();
-            Task.Factory.StartNew(this.LoggingWorker, TaskCreationOptions.LongRunning);
         }
 
         /// <summary>Gets or sets the on close timeout.</summary>
-        public abstract TimeSpan OnCloseTimeout { get; set; }
+        public TimeSpan OnCloseTimeout { get; set; }
+
+        /// <summary>
+        /// Gets or sets the maximum size of rolling buffer of log events.
+        /// If the size is exceeded, old events will be discarded.
+        /// Default value (0) creates a buffer without upper bound
+        /// </summary>
+        public int RollingBufferSize { get; set; }
+
+        /// <summary>Gets or sets the maximum size of buffer which will trigger flushing log events instantly.</summary>
+        public int FlushTriggerBufferSize { get; set; }
+
+        /// <inheritdoc />
+        public override void ActivateOptions()
+        {
+            base.ActivateOptions();
+
+            this.eventsQueue = this.RollingBufferSize > 0 ? new BlockingCollection<LoggingEvent>(this.RollingBufferSize) : new BlockingCollection<LoggingEvent>();
+            Task.Factory.StartNew(this.LoggingWorker, TaskCreationOptions.LongRunning);
+        }
 
         /// <summary>
         /// Appends a new message to the asynchronous buffer
@@ -51,7 +72,11 @@
                 loggingEvent.Fix = FixFlags.All;
                 if (!this.eventsQueue.IsAddingCompleted)
                 {
-                    this.eventsQueue.TryAdd(loggingEvent);
+                    // Add new events in a rolling buffer fashion
+                    while (!this.eventsQueue.TryAdd(loggingEvent))
+                    {
+                        this.eventsQueue.TryTake(out _);
+                    }
                 }
             }
             catch (Exception ex)
@@ -88,7 +113,12 @@
                 foreach (var loggingEvent in this.eventsQueue.GetConsumingEnumerable(this.cancellationTokenSource.Token))
                 {
                     buffer.Add(loggingEvent);
-                    if (this.eventsQueue.Count == 0 || buffer.Count >= DefaultFlushTriggerBuggerSize)
+
+                    // Either current producer consumer buffer is empty or we have reached maximum size which triggers flush instantly
+                    // This approach creates log event batches which are variable in size, but if your concrete appender has much better
+                    // performance when performing bulk operations, this approach gives very good results, i.e. minimizing number of processing requests
+                    // while having almost real-time log events flow at the same time
+                    if (this.eventsQueue.Count == 0 || buffer.Count >= this.FlushTriggerBufferSize)
                     {
                         try
                         {

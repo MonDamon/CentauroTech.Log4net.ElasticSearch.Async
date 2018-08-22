@@ -22,6 +22,8 @@
             <retryMaxDelay>00:05:00</retryMaxDelay>
             <onCloseTimeout>00:00:10</onCloseTimeout>
             <externalIpCheckAddress>8.8.8.8</externalIpCheckAddress>
+            <flushTriggerBufferSize>256</flushTriggerBufferSize>
+            <rollingBufferSize>2048</rollingBufferSize>
             <evaluator type="log4net.Core.LevelEvaluator">
                 <threshold value="ERROR"/>
             </evaluator>

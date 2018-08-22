@@ -9,6 +9,7 @@ log4net.ElasticSearch.Async is a log4net appender, based on [log4net.ElasticSear
        
 * Background/Async logging based on producer-consumer pattern (non-blocking for main application thread)
 * Configurable exponential backoff retry policy for communication with ElasticSearch
+* Configurable buffer sizes with rolling buffer option (both general producer-consumer buffer and intermediate flush buffer)
 * External machine IP added to log events (if possible)
 * Skipping TLS certificate validation for ElasticSearch endpoint
 * Setting custom HTTP(s) proxy
@@ -32,6 +33,8 @@ Example appender configuration which utilizes all the possible features, apart f
   <retryMaxDelay>00:05:00</retryMaxDelay>
   <onCloseTimeout>00:00:10</onCloseTimeout>
   <externalIpCheckAddress>8.8.8.8</externalIpCheckAddress>
+  <flushTriggerBufferSize>256</flushTriggerBufferSize>
+  <rollingBufferSize>2048</rollingBufferSize>
 </appender>
 ```
 

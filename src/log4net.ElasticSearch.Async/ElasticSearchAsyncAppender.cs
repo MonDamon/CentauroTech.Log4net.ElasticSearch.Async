@@ -53,10 +53,7 @@
 
         /// <summary>Gets or sets the address for checking machine external IP.</summary>
         public string ExternalIpCheckAddress { get; set; }
-
-        /// <summary>Gets or sets the on close timeout.</summary>
-        public override sealed TimeSpan OnCloseTimeout { get; set; }
-
+        
         /// <summary>Activates appender based on options.</summary>
         public override void ActivateOptions()
         {
