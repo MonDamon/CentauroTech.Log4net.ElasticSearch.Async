@@ -2,7 +2,7 @@
 <package >
     <metadata>
         <id>log4net.ElasticSearch.Async</id>
-        <version>1.1.1</version>
+        <version>1.1.2</version>
         <authors>Piotr Tylenda</authors>
         <owners>Piotr Tylenda</owners>
         <iconUrl>http://nest.azurewebsites.net/images/nuget-icon.png</iconUrl>

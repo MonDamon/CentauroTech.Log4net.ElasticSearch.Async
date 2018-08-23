@@ -7,6 +7,7 @@ log4net.ElasticSearch.Async is a log4net appender, based on log4net.ElasticSearc
 - Setting custom HTTP(s) proxy
 - Disabling system HTTP(S) proxy
 - Using custom ElasticSearch processing pipeline
+- Gzip HTTP compression
 
 
 ---

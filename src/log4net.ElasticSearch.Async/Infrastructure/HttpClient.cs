@@ -12,13 +12,11 @@
     
     internal class HttpClient : IHttpClient
     {
-        const string ContentType = "application/json";
-        const string Method = "POST";
-
         public void Post(Uri uri, RequestOptions options, logEvent item)
         {
             var httpWebRequest = RequestFor(uri, options);
-            using (var streamWriter = GetRequestStream(httpWebRequest, options))
+            using (var stream = GetRequestStream(httpWebRequest, options))
+            using (var streamWriter = new StreamWriter(stream))
             {
                 streamWriter.Write(item.ToJson());
                 streamWriter.Flush();
@@ -55,18 +53,19 @@
                 postBody.AppendLine(item.ToJson());
             }
 
-            using (var streamWriter = GetRequestStream(httpWebRequest, options))
+            using (var stream = GetRequestStream(httpWebRequest, options))
+            using (var streamWriter = new StreamWriter(stream))
             {
                 streamWriter.Write(postBody.ToString());
                 streamWriter.Flush();
+            }
 
-                using (var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse())
+            using (var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse())
+            {
+                if (httpResponse.StatusCode != HttpStatusCode.Created
+                    && httpResponse.StatusCode != HttpStatusCode.OK)
                 {
-                    if (httpResponse.StatusCode != HttpStatusCode.Created
-                        && httpResponse.StatusCode != HttpStatusCode.OK)
-                    {
-                        throw new WebException("Failed to post {0} to {1}.".With(postBody.ToString(), uri));
-                    }
+                    throw new WebException("Failed to post {0} to {1}.".With(postBody.ToString(), uri));
                 }
             }
         }
@@ -75,8 +74,8 @@
         {
             var httpWebRequest = (HttpWebRequest)WebRequest.Create(uri);
 
-            httpWebRequest.ContentType = ContentType;
-            httpWebRequest.Method = Method;
+            httpWebRequest.ContentType = "application/json";
+            httpWebRequest.Method = "POST";
 
 #if NET45
             if (options.SkipCertificateValidation)
@@ -104,15 +103,15 @@
             if (options.GzipCompression)
             {
                 httpWebRequest.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
+                httpWebRequest.Headers.Add("Content-Encoding", "gzip");
             }
 
             return httpWebRequest;
         }
 
-        private static StreamWriter GetRequestStream(WebRequest httpWebRequest, RequestOptions options)
+        private static Stream GetRequestStream(WebRequest httpWebRequest, RequestOptions options)
         {
-            var innerStream = options.GzipCompression ? new GZipStream(httpWebRequest.GetRequestStream(), CompressionMode.Compress) : httpWebRequest.GetRequestStream();
-            return new StreamWriter(innerStream);
+            return options.GzipCompression ? new GZipStream(httpWebRequest.GetRequestStream(), CompressionMode.Compress) : httpWebRequest.GetRequestStream();
         }
     }
 }
