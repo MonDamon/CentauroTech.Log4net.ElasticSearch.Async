@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.IO.Compression;
     using System.Net;
     using System.Text;
 
@@ -17,19 +18,17 @@
         public void Post(Uri uri, RequestOptions options, logEvent item)
         {
             var httpWebRequest = RequestFor(uri, options);
-
-            using (var streamWriter = GetRequestStream(httpWebRequest))
+            using (var streamWriter = GetRequestStream(httpWebRequest, options))
             {
                 streamWriter.Write(item.ToJson());
                 streamWriter.Flush();
+            }
 
-                var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-                httpResponse.Close();
-
+            using (var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse())
+            {
                 if (httpResponse.StatusCode != HttpStatusCode.Created)
                 {
-                    throw new WebException(
-                        "Failed to post {0} to {1}.".With(item.GetType().Name, uri));
+                    throw new WebException("Failed to post {0} to {1}.".With(item.GetType().Name, uri));
                 }
             }
         }
@@ -56,7 +55,7 @@
                 postBody.AppendLine(item.ToJson());
             }
 
-            using (var streamWriter = GetRequestStream(httpWebRequest))
+            using (var streamWriter = GetRequestStream(httpWebRequest, options))
             {
                 streamWriter.Write(postBody.ToString());
                 streamWriter.Flush();
@@ -102,12 +101,18 @@
                 httpWebRequest.Headers.Add(HttpRequestHeader.Authorization, "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(uri.UserInfo)));
             }
 
+            if (options.GzipCompression)
+            {
+                httpWebRequest.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
+            }
+
             return httpWebRequest;
         }
 
-        private static StreamWriter GetRequestStream(WebRequest httpWebRequest)
+        private static StreamWriter GetRequestStream(WebRequest httpWebRequest, RequestOptions options)
         {
-            return new StreamWriter(httpWebRequest.GetRequestStream());
+            var innerStream = options.GzipCompression ? new GZipStream(httpWebRequest.GetRequestStream(), CompressionMode.Compress) : httpWebRequest.GetRequestStream();
+            return new StreamWriter(innerStream);
         }
     }
 }

@@ -32,6 +32,7 @@ Example appender configuration which utilizes all the possible features, apart f
                            SkipProxy=true;
                            HttpDefaultConnectionLimit=30;
                            Pipeline=auto-timestamp;
+                           GzipCompression=true;
                            " />
   <maxRetries>10</maxRetries>
   <retrySeedDelay>00:00:05</retrySeedDelay>

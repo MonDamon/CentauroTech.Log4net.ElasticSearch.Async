@@ -2,7 +2,7 @@
 <package >
     <metadata>
         <id>log4net.ElasticSearch.Async</id>
-        <version>1.1.0</version>
+        <version>1.1.1</version>
         <authors>Piotr Tylenda</authors>
         <owners>Piotr Tylenda</owners>
         <iconUrl>http://nest.azurewebsites.net/images/nuget-icon.png</iconUrl>
@@ -18,6 +18,7 @@
           - Setting custom HTTP(S) proxy
           - Disabling system HTTP(S) proxy
           - Using custom ElasticSearch processing pipeline
+          - Gzip HTTP compression
         </description>
         <releaseNotes>
 - Background/Async logging based on producer-consumer pattern (non-blocking for main application thread)
@@ -28,6 +29,7 @@
 - Setting custom HTTP(S) proxy
 - Disabling system HTTP(S) proxy
 - Using custom ElasticSearch processing pipeline
+- Gzip HTTP compression
         </releaseNotes>
         <copyright>Copyright 2018</copyright>
         <tags>log logging exception elasticsearch log4net appender async nonblocking non-blocking elastic search</tags>

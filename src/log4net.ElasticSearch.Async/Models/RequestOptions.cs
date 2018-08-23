@@ -38,6 +38,11 @@
                 ? this.connectionStringParts[Keys.HttpProxy]
                 : null;
 
+        /// <summary>Gets value indicating whether GZIP compression should be used for HTTP</summary>
+        public bool GzipCompression =>
+            this.connectionStringParts.Contains(Keys.GzipCompression)
+            && this.connectionStringParts[Keys.GzipCompression].ToBool();
+
         [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed. Suppression is OK here. Names and purpose of the class is self-explanatory")]
         private static class Keys
         {
@@ -45,6 +50,7 @@
             public const string SkipProxy = "SkipProxy";
             public const string HttpDefaultConnectionLimit = "HttpDefaultConnectionLimit";
             public const string HttpProxy = "HttpProxy";
+            public const string GzipCompression = "GzipCompression";
         }
     }
 }
