@@ -1,17 +1,20 @@
 ﻿namespace log4net.ElasticSearch.Async.Models
 {
+    using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.Diagnostics.CodeAnalysis;
+
+    using log4net.ElasticSearch.Async.Infrastructure;
 
     /// <summary>Additional request options for ElasticSearch connection.</summary>
     internal class RequestOptions
     {
         /// <summary>The connection string parts.</summary>
-        private readonly StringDictionary connectionStringParts;
+        private readonly CaseInsensitiveStringDictionary<string> connectionStringParts;
 
         /// <summary>Initializes a new instance of the <see cref="RequestOptions"/> class.</summary>
         /// <param name="connectionStringParts">The connection string parts.</param>
-        public RequestOptions(StringDictionary connectionStringParts)
+        public RequestOptions(CaseInsensitiveStringDictionary<string> connectionStringParts)
         {
             this.connectionStringParts = connectionStringParts;
         }

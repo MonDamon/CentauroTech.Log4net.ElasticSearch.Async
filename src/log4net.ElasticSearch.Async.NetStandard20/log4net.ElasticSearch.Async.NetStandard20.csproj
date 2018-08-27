@@ -1,0 +1,51 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>log4net.ElasticSearch.Async</AssemblyName>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>..\..\bin\lib</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>..\..\bin\lib</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\log4net.ElasticSearch.Async\AssemblyVersionInfo.cs" Link="AssemblyVersionInfo.cs" />
+    <Compile Include="..\log4net.ElasticSearch.Async\ElasticSearchAsyncAppender.cs" Link="ElasticSearchAsyncAppender.cs" />
+    <Compile Include="..\log4net.ElasticSearch.Async\ExtensionMethods.cs" Link="ExtensionMethods.cs" />
+    <Compile Include="..\log4net.ElasticSearch.Async\Infrastructure\AnonymousDisposable.cs" Link="Infrastructure\AnonymousDisposable.cs" />
+    <Compile Include="..\log4net.ElasticSearch.Async\Infrastructure\AsyncBulkAppenderSkeleton.cs" Link="Infrastructure\AsyncBulkAppenderSkeleton.cs" />
+    <Compile Include="..\log4net.ElasticSearch.Async\Infrastructure\CaseInsensitiveStringDictionary.cs" Link="Infrastructure\CaseInsensitiveStringDictionary.cs" />
+    <Compile Include="..\log4net.ElasticSearch.Async\Infrastructure\Clock.cs" Link="Infrastructure\Clock.cs" />
+    <Compile Include="..\log4net.ElasticSearch.Async\Infrastructure\HttpClient.cs" Link="Infrastructure\HttpClient.cs" />
+    <Compile Include="..\log4net.ElasticSearch.Async\Infrastructure\NetworkDataProvider.cs" Link="Infrastructure\NetworkDataProvider.cs" />
+    <Compile Include="..\log4net.ElasticSearch.Async\Infrastructure\Pair.cs" Link="Infrastructure\Pair.cs" />
+    <Compile Include="..\log4net.ElasticSearch.Async\Infrastructure\RetryPolicy.cs" Link="Infrastructure\RetryPolicy.cs" />
+    <Compile Include="..\log4net.ElasticSearch.Async\Interfaces\IHttpClient.cs" Link="Interfaces\IHttpClient.cs" />
+    <Compile Include="..\log4net.ElasticSearch.Async\Interfaces\IRepository.cs" Link="Interfaces\IRepository.cs" />
+    <Compile Include="..\log4net.ElasticSearch.Async\Models\ElasticSearchUri.cs" Link="Model\ElasticSearchUri.cs" />
+    <Compile Include="..\log4net.ElasticSearch.Async\Models\JsonSerializableException.cs" Link="Model\JsonSerializableException.cs" />
+    <Compile Include="..\log4net.ElasticSearch.Async\Models\logEvent.cs" Link="Model\logEvent.cs" />
+    <Compile Include="..\log4net.ElasticSearch.Async\Models\MachineDataProvider.cs" Link="Model\MachineDataProvider.cs" />
+    <Compile Include="..\log4net.ElasticSearch.Async\Models\RequestOptions.cs" Link="Model\RequestOptions.cs" />
+    <Compile Include="..\log4net.ElasticSearch.Async\Repository.cs" Link="Repository.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Infrastructure\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="Model\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="Polly" Version="6.0.1" />
+  </ItemGroup>
+
+</Project>

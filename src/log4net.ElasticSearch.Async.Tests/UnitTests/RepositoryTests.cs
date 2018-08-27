@@ -1,6 +1,7 @@
 ﻿namespace log4net.ElasticSearch.Async.Tests.UnitTests
 {
     using System;
+    using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.Linq;
 
@@ -26,7 +27,7 @@
             {
                 var httpClientStub = new HttpClientStub(() => Clock.Freeze(Clock.Now.AddSeconds(5)));
 
-                var repository = Repository.Create("Server=localhost;Index=log;Port=9200;rolling=true", new RequestOptions(new StringDictionary()), httpClientStub);
+                var repository = Repository.Create("Server=localhost;Index=log;Port=9200;rolling=true", new RequestOptions(new CaseInsensitiveStringDictionary<string>()), httpClientStub);
 
                 repository.Add(logEvents);
                 repository.Add(logEvents);

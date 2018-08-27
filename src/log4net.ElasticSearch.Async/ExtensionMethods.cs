@@ -5,11 +5,16 @@
     using System.Collections.Specialized;
     using System.Data.Common;
     using System.Linq;
-    using System.Web.Script.Serialization;
 
     using log4net.Core;
     using log4net.ElasticSearch.Async.Infrastructure;
     using log4net.Util;
+
+#if NETSTANDARD || NETSTANDARD2_0
+    using Newtonsoft.Json;
+#else
+    using System.Web.Script.Serialization;
+#endif
 
     internal static class ExtensionMethods
     {
@@ -31,16 +36,30 @@
             return self.GetProperties().AsPairs();
         }
 
+#if NETSTANDARD || NETSTANDARD2_0
+        public static string ToJson<T>(this T self)
+        {
+            return JsonConvert.SerializeObject(self);
+        }
+#else
         public static string ToJson<T>(this T self)
         {
             JavaScriptSerializer serializer = new JavaScriptSerializer();
-            serializer.MaxJsonLength = Int32.MaxValue;
+            serializer.MaxJsonLength = int.MaxValue;
             return serializer.Serialize(self);
         }
+#endif
 
-        public static bool Contains(this StringDictionary self, string key)
+        public static bool Contains(this CaseInsensitiveStringDictionary<string> self, string key)
         {
             return self.ContainsKey(key) && !self[key].IsNullOrEmpty();
+        }
+
+
+        public static string Get(this CaseInsensitiveStringDictionary<string> self, string key)
+        {
+            self.TryGetValue(key, out string value);
+            return value;
         }
 
         public static bool ToBool(this string self)
@@ -53,14 +72,14 @@
         /// </summary>
         /// <param name="self">The connection string itself</param>
         /// <returns>A dictionary of all the parts</returns>
-        public static StringDictionary ConnectionStringParts(this string self)
+        public static CaseInsensitiveStringDictionary<string> ConnectionStringParts(this string self)
         {
             var builder = new DbConnectionStringBuilder
             {
                 ConnectionString = self.Replace("{", "\"").Replace("}", "\"")
             };
 
-            var parts = new StringDictionary();
+            var parts = new CaseInsensitiveStringDictionary<string>();
             foreach (string key in builder.Keys)
             {
                 parts[key] = Convert.ToString(builder[key]);

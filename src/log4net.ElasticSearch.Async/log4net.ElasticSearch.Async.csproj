@@ -58,6 +58,7 @@
     <Compile Include="Infrastructure\AnonymousDisposable.cs" />
     <Compile Include="AssemblyVersionInfo.cs" />
     <Compile Include="Infrastructure\AsyncBulkAppenderSkeleton.cs" />
+    <Compile Include="Infrastructure\CaseInsensitiveStringDictionary.cs" />
     <Compile Include="Infrastructure\Clock.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Infrastructure\HttpClient.cs" />

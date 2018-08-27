@@ -19,6 +19,7 @@ log4net.ElasticSearch.Async is a log4net appender, based on [log4net.ElasticSear
 * Disabling system HTTP(S) proxy
 * Using custom ElasticSearch processing pipeline
 * Gzip HTTP compression
+* NET Standard 2.0 support
 
 Example appender configuration which utilizes all the possible features, apart from setting custom HTTP(S) proxy:
 ```xml

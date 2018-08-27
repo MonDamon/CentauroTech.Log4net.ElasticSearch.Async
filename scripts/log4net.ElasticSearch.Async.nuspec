@@ -2,7 +2,7 @@
 <package >
     <metadata>
         <id>log4net.ElasticSearch.Async</id>
-        <version>1.1.2</version>
+        <version>1.2.0</version>
         <authors>Piotr Tylenda</authors>
         <owners>Piotr Tylenda</owners>
         <iconUrl>http://nest.azurewebsites.net/images/nuget-icon.png</iconUrl>
@@ -19,6 +19,7 @@
           - Disabling system HTTP(S) proxy
           - Using custom ElasticSearch processing pipeline
           - Gzip HTTP compression
+          - NET Standard 2.0 support
         </description>
         <releaseNotes>
 - Background/Async logging based on producer-consumer pattern (non-blocking for main application thread)
@@ -30,6 +31,7 @@
 - Disabling system HTTP(S) proxy
 - Using custom ElasticSearch processing pipeline
 - Gzip HTTP compression
+- NET Standard 2.0 support
         </releaseNotes>
         <copyright>Copyright 2018</copyright>
         <tags>log logging exception elasticsearch log4net appender async nonblocking non-blocking elastic search</tags>
@@ -41,6 +43,11 @@
             <group targetFramework="net40">
                 <dependency id="log4net" version="2.0.5.0" />
                 <dependency id="Polly" version="4.2.0.0" />
+            </group>
+            <group targetFramework="netstandard2.0">
+                <dependency id="log4net" version="2.0.8.0" />
+                <dependency id="Polly" version="6.0.1.0" />
+                <dependency id="Newtonsoft.Json" version="11.0.2.0" />
             </group>
         </dependencies>
     </metadata>

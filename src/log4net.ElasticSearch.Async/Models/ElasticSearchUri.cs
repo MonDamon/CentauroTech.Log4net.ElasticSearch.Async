@@ -9,9 +9,9 @@
 
     internal class ElasticSearchUri
     {
-        private readonly StringDictionary connectionStringParts;
+        private readonly CaseInsensitiveStringDictionary<string> connectionStringParts;
 
-        public ElasticSearchUri(StringDictionary connectionStringParts)
+        public ElasticSearchUri(CaseInsensitiveStringDictionary<string> connectionStringParts)
         {
             this.connectionStringParts = connectionStringParts;
         }
@@ -60,27 +60,27 @@
 
         private string User()
         {
-            return this.connectionStringParts[Keys.User];
+            return this.connectionStringParts.Get(Keys.User);
         }
 
         private string Password()
         {
-            return this.connectionStringParts[Keys.Password];
+            return this.connectionStringParts.Get(Keys.Password);
         }
 
         private string Scheme()
         {
-            return this.connectionStringParts[Keys.Scheme] ?? "http";
+            return this.connectionStringParts.Get(Keys.Scheme) ?? "http";
         }
 
         private string Server()
         {
-            return this.connectionStringParts[Keys.Server];
+            return this.connectionStringParts.Get(Keys.Server);
         }
 
         private string Port()
         {
-            return this.connectionStringParts[Keys.Port];
+            return this.connectionStringParts.Get(Keys.Port);
         }
         
         private string Bulk()
@@ -90,29 +90,29 @@
 
         private string Index()
         {
-            var index = this.connectionStringParts[Keys.Index];
+            var index = this.connectionStringParts.Get(Keys.Index);
 
             return IsRollingIndex(this.connectionStringParts)
                        ? "{0}-{1}".With(index, Clock.Date.ToString("yyyy.MM.dd"))
                        : index;
         }
 
-        private static bool IsRollingIndex(StringDictionary parts)
+        private static bool IsRollingIndex(CaseInsensitiveStringDictionary<string> parts)
         {
-            return parts.Contains(Keys.Rolling) && parts[Keys.Rolling].ToBool();
+            return parts.Contains(Keys.Rolling) && parts.Get(Keys.Rolling).ToBool();
         }
 
         private string UrlParams()
         {
             var urlParamsDict = new Dictionary<string, string>();
 
-            var routing = this.connectionStringParts[Keys.Routing];
+            var routing = this.connectionStringParts.Get(Keys.Routing);
             if (!string.IsNullOrWhiteSpace(routing))
             {
                 urlParamsDict["routing"] = routing;
             }
 
-            var pipeline = this.connectionStringParts[Keys.Pipeline];
+            var pipeline = this.connectionStringParts.Get(Keys.Pipeline);
             if (!string.IsNullOrWhiteSpace(pipeline))
             {
                 urlParamsDict["pipeline"] = pipeline;

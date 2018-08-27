@@ -1,6 +1,7 @@
 ﻿namespace log4net.ElasticSearch.Async.Tests.UnitTests
 {
     using System;
+    using System.Collections.Generic;
     using System.Collections.Specialized;
 
     using FluentAssertions;
@@ -43,7 +44,7 @@
             Uri uri = uriBuilder;
             uri.Scheme.Should().Be("http");
 
-            var request = HttpClient.RequestFor(uri, new RequestOptions(new StringDictionary()));
+            var request = HttpClient.RequestFor(uri, new RequestOptions(new CaseInsensitiveStringDictionary<string>()));
 
             request.Headers.AllKeys.Should().NotContain("Authorization");
         }
@@ -64,7 +65,7 @@
             var uriBuilder = ElasticSearchUri.For(ConnectionString).GetUri(useBulkApi: false);
             Uri uri = uriBuilder;
 
-            var request = HttpClient.RequestFor(uri, new RequestOptions(new StringDictionary()));
+            var request = HttpClient.RequestFor(uri, new RequestOptions(new CaseInsensitiveStringDictionary<string>()));
 
             request.Headers.AllKeys.Should().Contain("Authorization");
 

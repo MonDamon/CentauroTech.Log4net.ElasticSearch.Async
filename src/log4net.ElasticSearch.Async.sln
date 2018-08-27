@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2000
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "log4net.ElasticSearch.Async", "log4net.ElasticSearch.Async\log4net.ElasticSearch.Async.csproj", "{22964CB0-8A39-41EA-807D-B5216D27DF70}"
 EndProject
@@ -20,6 +20,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{BF70CF
 	ProjectSection(SolutionItems) = preProject
 		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "log4net.ElasticSearch.Async.NetStandard20", "log4net.ElasticSearch.Async.NetStandard20\log4net.ElasticSearch.Async.NetStandard20.csproj", "{6B76DC04-41E3-4325-A0B8-17BFFB572EAF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,8 +63,23 @@ Global
 		{5C18DDF1-DDCD-4DA0-A985-E47DD0EF990C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{5C18DDF1-DDCD-4DA0-A985-E47DD0EF990C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{5C18DDF1-DDCD-4DA0-A985-E47DD0EF990C}.Release|x86.ActiveCfg = Release|Any CPU
+		{6B76DC04-41E3-4325-A0B8-17BFFB572EAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B76DC04-41E3-4325-A0B8-17BFFB572EAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B76DC04-41E3-4325-A0B8-17BFFB572EAF}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{6B76DC04-41E3-4325-A0B8-17BFFB572EAF}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{6B76DC04-41E3-4325-A0B8-17BFFB572EAF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6B76DC04-41E3-4325-A0B8-17BFFB572EAF}.Debug|x86.Build.0 = Debug|Any CPU
+		{6B76DC04-41E3-4325-A0B8-17BFFB572EAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B76DC04-41E3-4325-A0B8-17BFFB572EAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B76DC04-41E3-4325-A0B8-17BFFB572EAF}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{6B76DC04-41E3-4325-A0B8-17BFFB572EAF}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{6B76DC04-41E3-4325-A0B8-17BFFB572EAF}.Release|x86.ActiveCfg = Release|Any CPU
+		{6B76DC04-41E3-4325-A0B8-17BFFB572EAF}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5FA5AF71-837F-424C-964C-D37D4E87EE59}
 	EndGlobalSection
 EndGlobal
