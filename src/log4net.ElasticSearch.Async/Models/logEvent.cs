@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Reflection;
 
     using log4net.Core;
     using log4net.ElasticSearch.Async.Infrastructure;
@@ -57,12 +58,18 @@
 
         public string machineIp { get; set; }
 
-        public static IList<logEvent> CreateMany(IEnumerable<LoggingEvent> loggingEvents, MachineDataProvider machineDataProvider)
+        public static IList<logEvent> CreateMany(
+            IEnumerable<LoggingEvent> loggingEvents,
+            MachineDataProvider machineDataProvider,
+            Action<string, Exception> errorHandler)
         {
-            return loggingEvents.Select(@event => Create(@event, machineDataProvider)).ToArray();
+            return loggingEvents.Select(@event => Create(@event, machineDataProvider, errorHandler)).ToArray();
         }
 
-        static logEvent Create(LoggingEvent loggingEvent, MachineDataProvider machineDataProvider)
+        static logEvent Create(
+            LoggingEvent loggingEvent,
+            MachineDataProvider machineDataProvider,
+            Action<string, Exception> errorHandler)
         {
             var logEvent = new logEvent
             {
@@ -79,6 +86,23 @@
                 level = loggingEvent.Level == null ? null : loggingEvent.Level.DisplayName,
                 machineIp = machineDataProvider?.MachineExternalIp
             };
+
+            try
+            {
+                if (logEvent.domain == Util.SystemInfo.NotAvailableText)
+                {
+                    logEvent.domain = Assembly.GetEntryAssembly().GetName().Name;
+                }
+
+                if (logEvent.userName == Util.SystemInfo.NotAvailableText)
+                {
+                    logEvent.userName = Environment.UserName;
+                }
+            }
+            catch (Exception ex)
+            {
+                errorHandler("Exception occurred while adding properties to log event", ex);
+            }
 
             // Added special handling of the MessageObject since it may be an exception. 
             // Exception Types require specialized serialization to prevent serialization exceptions.
@@ -111,7 +135,7 @@
 
             return logEvent;
         }
-
+        
         static void AddProperties(LoggingEvent loggingEvent, logEvent logEvent)
         {
             loggingEvent.Properties().Union(AppenderPropertiesFor(loggingEvent)).Do(pair => logEvent.properties.Add(pair));

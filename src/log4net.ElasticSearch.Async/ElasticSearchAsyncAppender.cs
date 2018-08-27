@@ -87,7 +87,11 @@
                         this.RetrySeedDelay,
                         this.RetryMaxDelay,
                         (exception, retryDelay) => this.ErrorHandler.Error($"Adding logEvents to {this.repository.GetType().Name} will be retried after {retryDelay}"))
-                    .Execute(() => this.repository.Add(logEvent.CreateMany(loggingEvents, this.machineDataProvider)));
+                    .Execute(() =>
+                        {
+                            var events = logEvent.CreateMany(loggingEvents, this.machineDataProvider, this.HandleError);
+                            this.repository.Add(events);
+                        });
             }
             catch (Exception ex)
             {
@@ -101,7 +105,10 @@
         {
             if (options.SkipCertificateValidation)
             {
-#if NET45
+#if NETSTANDARD || NETSTANDARD2_0
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls  | SecurityProtocolType.Tls11
+                                                                                 | SecurityProtocolType.Tls12;
+#elif NET45
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls
                                                                                  | SecurityProtocolType.Tls11
                                                                                  | SecurityProtocolType.Tls12;
