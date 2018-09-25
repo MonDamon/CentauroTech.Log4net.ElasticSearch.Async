@@ -72,7 +72,7 @@
             }
             
             var options = new RequestOptions(this.ConnectionString.ConnectionStringParts());
-            ProcessOptions(options);
+            this.ProcessOptions(options);
             this.InitializeProviders(options);
         }
 
@@ -99,25 +99,49 @@
             }
         }
 
+        /// <summary>Validates ElasticSearch connection string.</summary>
+        /// <param name="connectionString">The connection string.</param>
+        /// <exception cref="ArgumentNullException" />
+        /// <exception cref="ArgumentException" />
+        private static void Validate(string connectionString)
+        {
+            if (connectionString == null)
+            {
+                throw new ArgumentNullException(nameof(connectionString));
+            }
+
+            if (connectionString.Length == 0)
+            {
+                throw new ArgumentException("connectionString is empty", nameof(connectionString));
+            }
+        }
+
         /// <summary>Processes request options during initialization.</summary>
         /// <param name="options">Request options.</param>
-        private static void ProcessOptions(RequestOptions options)
+        private void ProcessOptions(RequestOptions options)
         {
             if (options.SkipCertificateValidation)
             {
+                try
+                { 
 #if NETSTANDARD || NETSTANDARD2_0
-                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls  | SecurityProtocolType.Tls11
-                                                                                 | SecurityProtocolType.Tls12;
+                    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls  | SecurityProtocolType.Tls11
+                                                                                     | SecurityProtocolType.Tls12;
 #elif NET45
-                ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls
-                                                                                 | SecurityProtocolType.Tls11
-                                                                                 | SecurityProtocolType.Tls12;
+                    ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls
+                                                                                     | SecurityProtocolType.Tls11
+                                                                                     | SecurityProtocolType.Tls12;
 #else
-                ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
-                ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls
-                                                                                 | (SecurityProtocolType)768
-                                                                                 | (SecurityProtocolType)3072;
+                    ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
+                    ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls
+                                                                                     | (SecurityProtocolType)768
+                                                                                     | (SecurityProtocolType)3072;
 #endif
+                }
+                catch (Exception ex)
+                {
+                    this.HandleError("Failed to set up SkipCertificateValidation {0} while processing options for appender".With(this.repository.GetType().Name), ex);
+                }
             }
 
             if (options.HttpDefaultConnectionLimit.HasValue)
@@ -133,23 +157,6 @@
             {
                 var proxyUri = new Uri(options.HttpProxy);
                 WebRequest.DefaultWebProxy = new WebProxy(proxyUri);
-            }
-        }
-
-        /// <summary>Validates ElasticSearch connection string.</summary>
-        /// <param name="connectionString">The connection string.</param>
-        /// <exception cref="ArgumentNullException" />
-        /// <exception cref="ArgumentException" />
-        private static void Validate(string connectionString)
-        {
-            if (connectionString == null)
-            {
-                throw new ArgumentNullException(nameof(connectionString));
-            }
-
-            if (connectionString.Length == 0)
-            {
-                throw new ArgumentException("connectionString is empty", nameof(connectionString));
             }
         }
 
