@@ -1,9 +1,9 @@
-﻿namespace log4net.ElasticSearch.Async.Interfaces
+﻿namespace CentauroTech.Log4net.ElasticSearch.Async.Interfaces
 {
     using System;
     using System.Collections.Generic;
 
-    using log4net.ElasticSearch.Async.Models;
+    using CentauroTech.Log4net.ElasticSearch.Async.Models;
 
     internal interface IHttpClient
     {

@@ -4,12 +4,12 @@ using log4net.Config;
 
 using Xunit;
 
-[assembly: AssemblyTitle("log4net.ElasticSearch.Tests")]
+[assembly: AssemblyTitle("CentauroTech.Log4net.ElasticSearch.Tests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("log4net.ElasticSearch.Tests")]
-[assembly: AssemblyCopyright("Copyright ©  2013")]
+[assembly: AssemblyProduct("CentauroTech.Log4net.ElasticSearch.Tests")]
+[assembly: AssemblyCopyright("Copyright ©  2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]

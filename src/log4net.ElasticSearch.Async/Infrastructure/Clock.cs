@@ -1,4 +1,4 @@
-﻿namespace log4net.ElasticSearch.Async.Infrastructure
+﻿namespace CentauroTech.Log4net.ElasticSearch.Async.Infrastructure
 {
     using System;
 

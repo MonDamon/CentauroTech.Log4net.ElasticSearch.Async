@@ -1,11 +1,11 @@
-﻿namespace log4net.ElasticSearch.Async.Models
+﻿namespace CentauroTech.Log4net.ElasticSearch.Async.Models
 {
     using System;
     using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.Linq;
 
-    using log4net.ElasticSearch.Async.Infrastructure;
+    using CentauroTech.Log4net.ElasticSearch.Async.Infrastructure;
 
     internal class ElasticSearchUri
     {

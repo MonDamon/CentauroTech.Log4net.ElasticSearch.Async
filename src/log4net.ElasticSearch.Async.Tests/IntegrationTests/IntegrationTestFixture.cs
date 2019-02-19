@@ -1,4 +1,4 @@
-﻿namespace log4net.ElasticSearch.Async.Tests.IntegrationTests
+﻿namespace CentauroTech.Log4net.ElasticSearch.Async.Tests.IntegrationTests
 {
     using System;
 

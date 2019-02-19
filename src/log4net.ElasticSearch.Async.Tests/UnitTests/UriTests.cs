@@ -1,11 +1,11 @@
-﻿namespace log4net.ElasticSearch.Async.Tests.UnitTests
+﻿namespace CentauroTech.Log4net.ElasticSearch.Async.Tests.UnitTests
 {
     using System;
 
     using FluentAssertions;
 
-    using log4net.ElasticSearch.Async.Infrastructure;
-    using log4net.ElasticSearch.Async.Models;
+    using CentauroTech.Log4net.ElasticSearch.Async.Infrastructure;
+    using CentauroTech.Log4net.ElasticSearch.Async.Models;
 
     using Xunit;
 

@@ -1,10 +1,10 @@
-﻿namespace log4net.ElasticSearch.Async.Models
+﻿namespace CentauroTech.Log4net.ElasticSearch.Async.Models
 {
     using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.Diagnostics.CodeAnalysis;
 
-    using log4net.ElasticSearch.Async.Infrastructure;
+    using CentauroTech.Log4net.ElasticSearch.Async.Infrastructure;
 
     /// <summary>Additional request options for ElasticSearch connection.</summary>
     internal class RequestOptions

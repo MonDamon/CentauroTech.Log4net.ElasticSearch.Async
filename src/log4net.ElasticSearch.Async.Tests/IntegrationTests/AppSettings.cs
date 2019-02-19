@@ -1,9 +1,9 @@
-﻿namespace log4net.ElasticSearch.Async.Tests.IntegrationTests
+﻿namespace CentauroTech.Log4net.ElasticSearch.Async.Tests.IntegrationTests
 {
     using System.Collections.Specialized;
     using System.Configuration;
 
-    using log4net.ElasticSearch.Async.Tests.Infrastructure;
+    using CentauroTech.Log4net.ElasticSearch.Async.Tests.Infrastructure;
 
     public static class AppSettings
     {

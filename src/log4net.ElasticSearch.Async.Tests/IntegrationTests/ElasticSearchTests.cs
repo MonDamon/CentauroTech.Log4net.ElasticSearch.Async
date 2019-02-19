@@ -1,10 +1,10 @@
-﻿namespace log4net.ElasticSearch.Async.Tests.IntegrationTests
+﻿namespace CentauroTech.Log4net.ElasticSearch.Async.Tests.IntegrationTests
 {
     using FluentAssertions;
 
-    using log4net.ElasticSearch.Async.Models;
-    using log4net.ElasticSearch.Async.Tests.Infrastructure;
-    using log4net.ElasticSearch.Async.Tests.Infrastructure.Builders;
+    using CentauroTech.Log4net.ElasticSearch.Async.Models;
+    using CentauroTech.Log4net.ElasticSearch.Async.Tests.Infrastructure;
+    using CentauroTech.Log4net.ElasticSearch.Async.Tests.Infrastructure.Builders;
 
     using Nest;
 

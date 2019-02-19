@@ -1,4 +1,4 @@
-﻿namespace log4net.ElasticSearch.Async.Infrastructure
+﻿namespace CentauroTech.Log4net.ElasticSearch.Async.Infrastructure
 {
     using System;
     using System.Collections.Generic;
@@ -7,8 +7,8 @@
     using System.Net;
     using System.Text;
 
-    using log4net.ElasticSearch.Async.Interfaces;
-    using log4net.ElasticSearch.Async.Models;
+    using CentauroTech.Log4net.ElasticSearch.Async.Interfaces;
+    using CentauroTech.Log4net.ElasticSearch.Async.Models;
     
     internal class HttpClient : IHttpClient
     {

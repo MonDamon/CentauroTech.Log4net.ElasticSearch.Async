@@ -1,4 +1,4 @@
-﻿namespace log4net.ElasticSearch.Async.Tests.Infrastructure.Builders
+﻿namespace CentauroTech.Log4net.ElasticSearch.Async.Tests.Infrastructure.Builders
 {
     using System;
     using System.Collections.Generic;

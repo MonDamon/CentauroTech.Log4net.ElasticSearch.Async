@@ -1,7 +1,7 @@
-﻿namespace log4net.ElasticSearch.Async.Tests.UnitTests
+﻿namespace CentauroTech.Log4net.ElasticSearch.Async.Tests.UnitTests
 {
-    using log4net.ElasticSearch.Async;
-    using log4net.ElasticSearch.Async.Interfaces;
+    using CentauroTech.Log4net.ElasticSearch.Async;
+    using CentauroTech.Log4net.ElasticSearch.Async.Interfaces;
 
     internal class TestableAppender : ElasticSearchAsyncAppender
     {

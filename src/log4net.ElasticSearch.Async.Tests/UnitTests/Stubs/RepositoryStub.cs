@@ -1,4 +1,4 @@
-﻿namespace log4net.ElasticSearch.Async.Tests.UnitTests.Stubs
+﻿namespace CentauroTech.Log4net.ElasticSearch.Async.Tests.UnitTests.Stubs
 {
     using System;
     using System.Collections.Concurrent;
@@ -6,8 +6,8 @@
     using System.Linq;
     using System.Threading;
 
-    using log4net.ElasticSearch.Async.Interfaces;
-    using log4net.ElasticSearch.Async.Models;
+    using CentauroTech.Log4net.ElasticSearch.Async.Interfaces;
+    using CentauroTech.Log4net.ElasticSearch.Async.Models;
 
     internal class RepositoryStub : IRepository
     {

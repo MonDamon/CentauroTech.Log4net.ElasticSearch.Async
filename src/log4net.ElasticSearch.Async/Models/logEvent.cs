@@ -1,4 +1,4 @@
-﻿namespace log4net.ElasticSearch.Async.Models
+﻿namespace CentauroTech.Log4net.ElasticSearch.Async.Models
 {
     using System;
     using System.Collections.Generic;
@@ -6,7 +6,8 @@
     using System.Reflection;
 
     using log4net.Core;
-    using log4net.ElasticSearch.Async.Infrastructure;
+
+    using CentauroTech.Log4net.ElasticSearch.Async.Infrastructure;
 
     /// <summary>
     /// Primary object which will get serialized into a json object to pass to ES. Deviating from CamelCase
@@ -89,12 +90,12 @@
 
             try
             {
-                if (logEvent.domain == Util.SystemInfo.NotAvailableText)
+                if (logEvent.domain == log4net.Util.SystemInfo.NotAvailableText)
                 {
                     logEvent.domain = Assembly.GetEntryAssembly().GetName().Name;
                 }
 
-                if (logEvent.userName == Util.SystemInfo.NotAvailableText)
+                if (logEvent.userName == log4net.Util.SystemInfo.NotAvailableText)
                 {
                     logEvent.userName = Environment.UserName;
                 }

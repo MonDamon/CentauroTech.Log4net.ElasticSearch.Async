@@ -1,4 +1,4 @@
-﻿namespace log4net.ElasticSearch.Async.Tests.UnitTests
+﻿namespace CentauroTech.Log4net.ElasticSearch.Async.Tests.UnitTests
 {
     using System.Collections.Generic;
     using System.Linq;

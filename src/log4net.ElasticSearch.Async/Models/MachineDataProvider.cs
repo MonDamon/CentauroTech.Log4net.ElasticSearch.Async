@@ -1,4 +1,4 @@
-﻿namespace log4net.ElasticSearch.Async.Models
+﻿namespace CentauroTech.Log4net.ElasticSearch.Async.Models
 {
     /// <summary>Machine data provider for log events.</summary>
     internal class MachineDataProvider

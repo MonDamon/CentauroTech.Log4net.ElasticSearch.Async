@@ -1,10 +1,10 @@
-﻿namespace log4net.ElasticSearch.Async.Tests.UnitTests.Stubs
+﻿namespace CentauroTech.Log4net.ElasticSearch.Async.Tests.UnitTests.Stubs
 {
     using System;
     using System.Collections.Generic;
 
-    using log4net.ElasticSearch.Async.Interfaces;
-    using log4net.ElasticSearch.Async.Models;
+    using CentauroTech.Log4net.ElasticSearch.Async.Interfaces;
+    using CentauroTech.Log4net.ElasticSearch.Async.Models;
 
     internal class HttpClientStub : IHttpClient
     {

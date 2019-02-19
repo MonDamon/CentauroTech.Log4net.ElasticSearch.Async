@@ -1,13 +1,13 @@
-﻿namespace log4net.ElasticSearch.Async
+﻿namespace CentauroTech.Log4net.ElasticSearch.Async
 {
     using System;
     using System.Collections.Generic;
     using System.Net;
 
     using log4net.Core;
-    using log4net.ElasticSearch.Async.Infrastructure;
-    using log4net.ElasticSearch.Async.Interfaces;
-    using log4net.ElasticSearch.Async.Models;
+    using CentauroTech.Log4net.ElasticSearch.Async.Infrastructure;
+    using CentauroTech.Log4net.ElasticSearch.Async.Interfaces;
+    using CentauroTech.Log4net.ElasticSearch.Async.Models;
 
     /// <summary>ElasticSearch async/background appender.</summary>
     public class ElasticSearchAsyncAppender : AsyncBulkAppenderSkeleton

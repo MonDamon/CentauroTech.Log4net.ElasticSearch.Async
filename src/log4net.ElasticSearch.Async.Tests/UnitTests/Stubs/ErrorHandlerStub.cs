@@ -1,4 +1,4 @@
-﻿namespace log4net.ElasticSearch.Async.Tests.UnitTests.Stubs
+﻿namespace CentauroTech.Log4net.ElasticSearch.Async.Tests.UnitTests.Stubs
 {
     using System;
     using System.Collections.Concurrent;

@@ -1,12 +1,12 @@
-﻿namespace log4net.ElasticSearch.Async
+﻿namespace CentauroTech.Log4net.ElasticSearch.Async
 {
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
 
-    using log4net.ElasticSearch.Async.Infrastructure;
-    using log4net.ElasticSearch.Async.Interfaces;
-    using log4net.ElasticSearch.Async.Models;
+    using CentauroTech.Log4net.ElasticSearch.Async.Infrastructure;
+    using CentauroTech.Log4net.ElasticSearch.Async.Interfaces;
+    using CentauroTech.Log4net.ElasticSearch.Async.Models;
 
     /// <summary>ElasticSearch data repository.</summary>
     internal class Repository : IRepository

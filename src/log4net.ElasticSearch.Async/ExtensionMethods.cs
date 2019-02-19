@@ -1,13 +1,13 @@
-﻿namespace log4net.ElasticSearch.Async
+﻿namespace CentauroTech.Log4net.ElasticSearch.Async
 {
     using System;
     using System.Collections.Generic;
-    using System.Collections.Specialized;
+
     using System.Data.Common;
     using System.Linq;
 
     using log4net.Core;
-    using log4net.ElasticSearch.Async.Infrastructure;
+    using CentauroTech.Log4net.ElasticSearch.Async.Infrastructure;
     using log4net.Util;
 
 #if NETSTANDARD || NETSTANDARD2_0
