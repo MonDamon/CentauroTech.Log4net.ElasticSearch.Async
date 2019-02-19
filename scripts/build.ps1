@@ -2,19 +2,18 @@ Framework "4.6"
 
 properties {
     $base_dir       = (Get-Item (Resolve-Path .)).Parent.FullName
-    $bin_dir        = "$base_dir\bin"
+    $bin_dir        = "$base_dir\bin\"
     $sln_path       = "$base_dir\src\CentauroTech.Log4net.ElasticSearch.Async.sln"
     $config         = "Release"
     $tests_path     = "$base_dir\src\CentauroTech.Log4net.ElasticSearch.Async.Tests\bin\$config\CentauroTech.Log4net.ElasticSearch.Async.Tests.dll"
     $xunit_path     = "$base_dir\src\packages\xunit.runner.console.2.1.0\tools\xunit.console.exe"
     $dirs           = @($bin_dir)
-    $artefacts      = @("$base_dir\LICENSE", "$base_dir\readme.txt")
+    $artefacts      = @("$base_dir\LICENSE", "$base_dir\scripts\readme.txt")
     $nuget_path     = "$base_dir\tools\nuget\NuGet.exe"
     $nuspec_path    = "$base_dir\scripts\CentauroTech.Log4net.ElasticSearch.Async.nuspec"
 }
 
-task default        -depends Clean, Compile, Test
-task Package        -depends default, CopyArtefactsToBinDirectory, CreateNugetPackage
+task default        -depends Clean, Compile, Test, CopyArtefactsToBinDirectory, CreateNugetPackage
 
 task Clean {
     $dirs | % { Recreate-Directory $_ }

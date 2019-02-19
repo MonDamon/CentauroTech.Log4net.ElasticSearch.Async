@@ -8,8 +8,8 @@
     <ProjectGuid>{2F7D7AD4-2DA0-430A-9E90-9D0E398D590C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>log4net.ElasticSearch.Async.Tests</RootNamespace>
-    <AssemblyName>log4net.ElasticSearch.Async.Tests</AssemblyName>
+    <RootNamespace>CentauroTech.Log4net.ElasticSearch.Async.Tests</RootNamespace>
+    <AssemblyName>CentauroTech.Log4net.ElasticSearch.Async.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -112,12 +112,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\log4net.ElasticSearch.Async\log4net.ElasticSearch.Async.csproj">
-      <Project>{22964cb0-8a39-41ea-807d-b5216d27df70}</Project>
-      <Name>log4net.ElasticSearch.Async</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="logConfig.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
@@ -125,6 +119,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CentauroTech.Log4net.ElasticSearch.Async\CentauroTech.Log4net.ElasticSearch.Async.csproj">
+      <Project>{22964cb0-8a39-41ea-807d-b5216d27df70}</Project>
+      <Name>CentauroTech.Log4net.ElasticSearch.Async</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

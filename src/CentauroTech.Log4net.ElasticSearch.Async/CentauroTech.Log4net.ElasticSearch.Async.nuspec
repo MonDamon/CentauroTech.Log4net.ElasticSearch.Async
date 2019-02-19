@@ -44,9 +44,9 @@
         </dependencies>
     </metadata>
     <files>
-        <file src="lib\**\CentauroTech.Log4net.ElasticSearch.Async*.dll" target="lib"/>
-        <file src="lib\**\CentauroTech.Log4net.ElasticSearch.Async*.pdb" target="lib"/>
-        <file src="lib\**\CentauroTech.Log4net.ElasticSearch.Async*.XML" target="lib"/>
+        <file src="bin\lib\net47\CentauroTech.Log4net.ElasticSearch.Async*.dll" target="lib"/>
+        <file src="bin\lib\net47\CentauroTech.Log4net.ElasticSearch.Async*.pdb" target="lib"/>
+        <file src="bin\lib\net47\CentauroTech.Log4net.ElasticSearch.Async*.XML" target="lib"/>
         <file src="readme.txt" target="" />
     </files>
 </package>
