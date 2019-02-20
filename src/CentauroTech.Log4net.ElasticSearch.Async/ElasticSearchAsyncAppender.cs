@@ -20,7 +20,7 @@
 
         /// <summary>Log event machine data provider.</summary>
         private MachineDataProvider machineDataProvider;
-        
+
         /// <summary>Initializes a new instance of the <see cref="ElasticSearchAsyncAppender"/> class.</summary>
         public ElasticSearchAsyncAppender()
         {
@@ -53,7 +53,7 @@
 
         /// <summary>Gets or sets the address for checking machine external IP.</summary>
         public string ExternalIpCheckAddress { get; set; }
-        
+
         /// <summary>Activates appender based on options.</summary>
         public override void ActivateOptions()
         {
@@ -70,7 +70,7 @@
                 this.HandleError("Failed to validate ConnectionString in ActivateOptions", ex);
                 return;
             }
-            
+
             var options = new RequestOptions(this.ConnectionString.ConnectionStringParts());
             this.ProcessOptions(options);
             this.InitializeProviders(options);
@@ -86,7 +86,7 @@
                         this.MaxRetries,
                         this.RetrySeedDelay,
                         this.RetryMaxDelay,
-                        (exception, retryDelay) => this.ErrorHandler.Error($"Adding logEvents to {this.repository.GetType().Name} will be retried after {retryDelay}"))
+                        (exception, retryDelay) => this.ErrorHandler.Error($"Adding logEvents to {this.repository.GetType().Name} will be retried after {retryDelay}",exception))
                     .Execute(() =>
                         {
                             var events = logEvent.CreateMany(loggingEvents, this.machineDataProvider, this.HandleError);
@@ -123,7 +123,7 @@
             if (options.SkipCertificateValidation)
             {
                 try
-                { 
+                {
 #if NETSTANDARD || NETSTANDARD2_0
                     ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls  | SecurityProtocolType.Tls11
                                                                                      | SecurityProtocolType.Tls12;
@@ -168,12 +168,12 @@
             {
                 this.repository = Repository.Create(this.ConnectionString, options);
             }
-            
+
             var networkDataProvider = new NetworkDataProvider(this.ErrorHandler);
             this.machineDataProvider = new MachineDataProvider
-                                           {
-                                               MachineExternalIp = networkDataProvider.GetMachineIp(this.ExternalIpCheckAddress)
-                                           };
+            {
+                MachineExternalIp = networkDataProvider.GetMachineIp(this.ExternalIpCheckAddress)
+            };
         }
 
         /// <summary>Handles error using log4net internal logger.</summary>
@@ -183,5 +183,5 @@
         {
             this.ErrorHandler.Error("{0} [{1}]: {2}.".With(AppenderType, this.Name, message), ex, ErrorCode.GenericFailure);
         }
-    }    
+    }
 }
