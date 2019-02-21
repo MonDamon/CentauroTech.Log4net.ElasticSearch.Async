@@ -2,7 +2,7 @@
 <package >
     <metadata>
         <id>CentauroTech.Log4net.ElasticSearch.Async</id>
-        <version>1.0.0</version>
+        <version>1.2.0</version>
         <authors>Cleyton Souza</authors>
         <owners>Cleyton Souza</owners>
         <iconUrl>http://nest.azurewebsites.net/images/nuget-icon.png</iconUrl>
