@@ -1,14 +1,6 @@
-log4net.ElasticSearch.Async
+CentauroTech.Log4net.ElasticSearch.Async
 =====================
-
-[![NuGet](https://buildstats.info/nuget/log4net.elasticsearch.async)](https://www.nuget.org/packages/log4net.ElasticSearch.Async/)
-
-[![Build status](https://ci.appveyor.com/api/projects/status/258t616fpp5336q2/branch/master?svg=true)](https://ci.appveyor.com/project/ptylenda/log4net-elasticsearch-async/branch/master)
-
-[![Build history](https://buildstats.info/appveyor/chart/ptylenda/log4net-elasticsearch-async)](https://ci.appveyor.com/project/ptylenda/log4net-elasticsearch-async)
-
-
-log4net.ElasticSearch.Async is a log4net appender, based on [log4net.ElasticSearch](https://github.com/jptoto/log4net.ElasticSearch) package, for easy logging of exceptions and messages to Elasticsearch indices. The main improvement over log4net.ElasticSearch is background/async logging based on producer-consumer pattern, automatically utilizing bulk API in case of log event bursts. Currently the package provides: 
+CentauroTech.Log4net.ElasticSearch.Async is a log4net appender, based on [log4net.ElasticSearch.Async](https://github.com/ptylenda/log4net.ElasticSearch.Async) package, for easy logging of exceptions and messages to Elasticsearch indices. The main improvement over log4net.ElasticSearch is background/async logging based on producer-consumer pattern, automatically utilizing bulk API in case of log event bursts. Currently the package provides: 
        
 * Background/Async logging based on producer-consumer pattern (non-blocking for main application thread)
 * Configurable exponential backoff retry policy for communication with ElasticSearch
@@ -19,7 +11,7 @@ log4net.ElasticSearch.Async is a log4net appender, based on [log4net.ElasticSear
 * Disabling system HTTP(S) proxy
 * Using custom ElasticSearch processing pipeline
 * Gzip HTTP compression
-* NET Standard 2.0 support
+
 
 Example appender configuration which utilizes all the possible features, apart from setting custom HTTP(S) proxy:
 ```xml
