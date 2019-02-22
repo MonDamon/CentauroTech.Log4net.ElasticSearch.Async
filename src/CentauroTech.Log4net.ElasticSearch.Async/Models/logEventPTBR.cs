@@ -12,65 +12,61 @@
     /// <summary>
     /// Primary object which will get serialized into a json object to pass to ES. Deviating from CamelCase
     /// class members so that we can stick with the build in serializer and not take a dependency on another lib. ES
-    /// expects fields to start with lowercase letters.
+    /// exepects fields to start with lowercase letters.
     /// </summary>
-    internal class logEvent
+    internal class logEventPTBR:logEvent
     {
-        public logEvent()
-        {
-            this.properties = new Dictionary<string, string>();
-        }
+     
+        public string horario { get {return base.timeStamp;}  set{;} }
 
-        public string timeStamp { get; set; }
+        public string mensagem { get{return base.message;} set{;} }
 
-        public string message { get; set; }
+        public object objeto { get{return base.messageObject;} set{;} }
 
-        public object messageObject { get; set; }
+        public object excecao { get{return base.exception;} set{;} }
 
-        public object exception { get; set; }
+        public string nomeLog { get; set; }
 
-        public string loggerName { get; set; }
+        public string dominio { get; set; }
 
-        public string domain { get; set; }
+        public string identidade { get; set; }
 
-        public string identity { get; set; }
+        public string nivel { get; set; }
 
-        public string level { get; set; }
+        public string nomeClasse { get; set; }
 
-        public string className { get; set; }
+        public string nomeArquivo { get; set; }
 
-        public string fileName { get; set; }
+        public string numeroLinha { get; set; }
 
-        public string lineNumber { get; set; }
+        public string informacaoCompleta { get; set; }
 
-        public string fullInfo { get; set; }
+        public string nomeMetodo { get; set; }
 
-        public string methodName { get; set; }
+        public IDictionary<string, string> propriedades { get; set; }
 
-        public string fix { get; set; }
+        public string nomeUsuario { get; set; }
 
-        public IDictionary<string, string> properties { get; set; }
+        public string nomeThread { get; set; }
 
-        public string userName { get; set; }
+        public string nomeHost { get; set; }
 
-        public string threadName { get; set; }
+        public string ipMaquina { get; set; }
 
-        public string hostName { get; set; }
-
-        public string machineIp { get; set; }
-
-        public abstract static IList<logEvent> CreateMany(
+         public static IList<logEvent> CreateMany(
             IEnumerable<LoggingEvent> loggingEvents,
             MachineDataProvider machineDataProvider,
             Action<string, Exception> errorHandler)
-        
+        {
+            return loggingEvents.Select(@event => Create(@event, machineDataProvider, errorHandler)).ToArray();
+        }
 
         protected static logEvent Create(
             LoggingEvent loggingEvent,
             MachineDataProvider machineDataProvider,
             Action<string, Exception> errorHandler)
         {
-            var logEvent = new logEvent
+            var logEvent = new logEventPTBR
             {
                 loggerName = loggingEvent.LoggerName,
                 domain = loggingEvent.Domain,
@@ -141,5 +137,6 @@
         {
             yield return Pair.For("@timestamp", loggingEvent.TimeStamp.ToUniversalTime().ToString("O"));
         }
+        
     }
 }

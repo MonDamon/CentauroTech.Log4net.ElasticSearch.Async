@@ -59,11 +59,13 @@
 
         public string machineIp { get; set; }
 
-        public abstract static IList<logEvent> CreateMany(
+        public static IList<logEvent> CreateMany(
             IEnumerable<LoggingEvent> loggingEvents,
             MachineDataProvider machineDataProvider,
             Action<string, Exception> errorHandler)
-        
+        {
+            return loggingEvents.Select(@event => Create(@event, machineDataProvider, errorHandler)).ToArray();
+        }
 
         protected static logEvent Create(
             LoggingEvent loggingEvent,
