@@ -14,7 +14,7 @@
     /// class members so that we can stick with the build in serializer and not take a dependency on another lib. ES
     /// expects fields to start with lowercase letters.
     /// </summary>
-    internal class logEvent
+    public abstract class logEvent: AbstractLogEvent
     {
         public logEvent()
         {
@@ -59,18 +59,20 @@
 
         public string machineIp { get; set; }
 
-        public abstract static IList<logEvent> CreateMany(
+         public override IList<logEvent> CreateMany(
             IEnumerable<LoggingEvent> loggingEvents,
             MachineDataProvider machineDataProvider,
             Action<string, Exception> errorHandler)
-        
+        {
+            return loggingEvents.Select(@event => Create(@event, machineDataProvider, errorHandler)).ToArray();
+        }
 
-        protected static logEvent Create(
+        public override  logEvent Create(
             LoggingEvent loggingEvent,
             MachineDataProvider machineDataProvider,
             Action<string, Exception> errorHandler)
         {
-            var logEvent = new logEvent
+            var logEvent = new logEventPTBR
             {
                 loggerName = loggingEvent.LoggerName,
                 domain = loggingEvent.Domain,
@@ -135,11 +137,12 @@
             return logEvent;
         }
 
-        protected static void AddProperties(LoggingEvent loggingEvent, logEvent logEvent) => loggingEvent.Properties().Union(AppenderPropertiesFor(loggingEvent)).Do(pair => logEvent.properties.Add(pair));
+        public override void AddProperties(LoggingEvent loggingEvent, logEvent logEvent) => loggingEvent.Properties().Union(AppenderPropertiesFor(loggingEvent)).Do(pair => logEvent.properties.Add(pair));
 
-        protected static IEnumerable<KeyValuePair<string, string>> AppenderPropertiesFor(LoggingEvent loggingEvent)
+        public override IEnumerable<KeyValuePair<string, string>> AppenderPropertiesFor(LoggingEvent loggingEvent)
         {
             yield return Pair.For("@timestamp", loggingEvent.TimeStamp.ToUniversalTime().ToString("O"));
         }
+       
     }
 }
