@@ -5,7 +5,7 @@
         <version>1.2.1</version>
         <authors>Cleyton Souza</authors>
         <owners>CentauroTech</owners>
-        <iconUrl>http://nest.azurewebsites.net/images/nuget-icon.png</iconUrl>
+        <iconUrl>http://en.gravatar.com/userimage/4241994/3c65f3dcbad06bacd1800a6e0c55bb05.png?size=200</iconUrl>
         <licenseUrl>https://github.com/mondamon/CentauroTech.Log4net.ElasticSearch.Async/blob/master/LICENSE</licenseUrl>
         <projectUrl>https://github.com/mondamon/CentauroTech.Log4net.ElasticSearch.Async</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
