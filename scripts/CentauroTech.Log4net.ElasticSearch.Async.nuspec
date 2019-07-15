@@ -2,12 +2,12 @@
 <package >
     <metadata>
         <id>CentauroTech.Log4net.ElasticSearch.Async</id>
-        <version>1.2.1</version>
-        <authors>Cleyton Souza</authors>
+        <version>1.2.3</version>
+        <authors>Cleyton Souza, Lucas Lins</authors>
         <owners>CentauroTech</owners>
         <iconUrl>http://en.gravatar.com/userimage/4241994/3c65f3dcbad06bacd1800a6e0c55bb05.png?size=200</iconUrl>
-        <licenseUrl>https://github.com/mondamon/CentauroTech.Log4net.ElasticSearch.Async/blob/master/LICENSE</licenseUrl>
-        <projectUrl>https://github.com/mondamon/CentauroTech.Log4net.ElasticSearch.Async</projectUrl>
+        <licenseUrl>https://github.com/CentauroDigital/CentauroTech.Log4net.ElasticSearch.Async/blob/master/LICENSE</licenseUrl>
+        <projectUrl>https://github.com/CentauroDigital/CentauroTech.Log4net.ElasticSearch.Async</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>CentauroTech.Log4net.ElasticSearch.Async is a log4net appender, based on log4net.ElasticSearch package, for easy logging of exceptions and messages to Elasticsearch indices. The main improvement over log4net.ElasticSearch is background/async logging based on producer-consumer pattern, automatically utilizing bulk API in case of log event bursts. Currently the package provides:        
           - Background/Async logging based on producer-consumer pattern (non-blocking for main application thread)
